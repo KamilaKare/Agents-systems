@@ -32,17 +32,17 @@ from langchain_openai import OpenAIEmbeddings, ChatOpenAI
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.document_loaders import TextLoader, PyPDFLoader
 from langchain_community.vectorstores import FAISS
-from langchain.chains import ConversationalRetrievalChain
-from langchain.memory import ConversationBufferMemory
-from langchain.prompts import ChatPromptTemplate, SystemMessagePromptTemplate, HumanMessagePromptTemplate
+from langchain_classic.chains import ConversationalRetrievalChain
+from langchain_classic.memory import ConversationBufferMemory
+from langchain_core.prompts import ChatPromptTemplate
 
 from dotenv import load_dotenv
 load_dotenv()
-os.environ["OPENAI_API_KEY"] = os.getenv("openai_key", "")
+os.environ["OPENAI_API_KEY"] = os.getenv("OPENAI_API_KEY", "")
 
 # ───────────────────────────────────────────────────────────────────────
 
-DOCS_DIR        = Path("c:\\Users\\KAMILA\\Desktop\\Formation LLM\\Module 3\Data")            # .txt & .pdf live here
+DOCS_DIR        = Path(r"c:\Users\KAMILA\Desktop\Formation LLM\Module 3\Data")            # .txt & .pdf live here
 EMBED_MODEL     = "text-embedding-3-small"
 CHAT_MODEL      = "gpt-4o-mini"
 CHUNK_SIZE      = 800
@@ -113,8 +113,8 @@ llm = ChatOpenAI(model=CHAT_MODEL, temperature=0.2)
 # Define a custom prompt template
 # ✔️ Use both "context" and "question" as expected by the chain
 custom_prompt = ChatPromptTemplate.from_messages([
-    SystemMessagePromptTemplate.from_template(SYSTEM_PROMPT),
-    HumanMessagePromptTemplate.from_template("Context:\n{context}\n\nQuestion: {question}")
+    ("system", SYSTEM_PROMPT),
+    ("human", "Context:\n{context}\n\nQuestion: {question}"),
 ])
 
 
