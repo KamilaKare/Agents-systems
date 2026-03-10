@@ -20,7 +20,7 @@ import os, json, textwrap
 from pathlib import Path
 
 import faiss, numpy as np, openai
-from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 from pypdf import PdfReader               # <─ PDF extractor
 from tqdm.auto import tqdm                # optional progress bar
 from dotenv import load_dotenv
@@ -41,7 +41,7 @@ SYSTEM_PROMPT = (
     "If the answer is missing, say “I don't know.”"
 )
 
-openai.api_key = os.getenv("openai_key")
+openai.api_key = os.getenv("OPENAI_API_KEY")
 assert openai.api_key, "👉  Please set OPENAI_API_KEY first!"
 # ─────────────────────────────────────────────────────────────────
 
